@@ -1,17 +1,11 @@
-name: Sequential jobs
+name: Matrix
 on: push
 jobs:
-  first:                   # 依存ジョブがないので最初に実行される
-    runs-on: ubuntu-latest
+  print:
+    strategy:
+      matrix:                                             # マトリックスの定義
+        os: [ubuntu-latest, windows-latest, macos-latest] # osプロパティの定義
+    runs-on: ${{ matrix.os }}                             # osプロパティの参照
     steps:
-      - run: sleep 10 && echo "First job"
-  second:                  # firstジョブのあとに実行される
-    runs-on: ubuntu-latest
-    needs: [first]         # needsキーへ依存するfirstジョブのIDを指定
-    steps:
-     - run: sleep 10 && echo "Second job"
-  third:                   # secondジョブのあとに実行される
-    runs-on: ubuntu-latest
-    needs: [second]        # needsキーへ依存するsecondジョブのIDを指定
-    steps:
-      - run: sleep 10 && echo "Third job"
+      - run: echo "${RUNNER_OS}"
+        shell: bash
