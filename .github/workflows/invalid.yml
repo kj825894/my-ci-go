@@ -1,9 +1,15 @@
-name: Annotation
+name: Parallel jobs
 on: push
-jobs:
-  log:
+jobs: # jobsキーへ複数のジョブを定義すれば、並列に実行される
+  first:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "::error::This is an error"    # Errorレベルのアノテーション
-      - run: echo "::warning::This is a warning" # Warningレベルのアノテーション
-      - run: echo "::notice::This is a notice"   # Noticeレベルのアノテーション
+      - run: sleep 10 && echo "First job"
+  second:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 10 && echo "Second job"
+  third:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 10 && echo "Third job"
