@@ -1,10 +1,7 @@
-name: Concurrency
+name: Debug log
 on: push
-concurrency:
- group: ${{ github.workflow }} # Concurrencyグループへワークフロー名を指定
- cancel-in-progress: true
 jobs:
-  sleep:
+  log:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 119
+      - run: echo "::debug::This is a debug log" # デバッグログ有効化時にのみ出力
