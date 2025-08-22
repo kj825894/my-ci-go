@@ -1,8 +1,8 @@
-name: Timeout
+name: Concurrency
 on: push
+concurrency: ${{ github.workflow }} # Concurrencyグループへワークフロー名を指定
 jobs:
   sleep:
     runs-on: ubuntu-latest
-    timeout-minutes: 1     # ワークフローのタイムアウトを1分に設定
     steps:
-      - run: sleep 120     # 2分（120秒）スリープさせる
+      - run: sleep 120
